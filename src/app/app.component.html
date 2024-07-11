@@ -17,25 +17,41 @@
       <button (click)="resetLocalStorage()">Reset Storage</button>
     </form>
   </div>
+
+  <label for="name">Search by Name:</label>
+  <input type="text" id="name" [(ngModel)]="nameFilter" (input)="filterUsers()" placeholder="Enter Name here" />
+
+  <label for="workoutType">Filter by Workout Type:</label>
+  <select id="workoutType" [(ngModel)]="workoutType" (change)="filterUsers()">
+    <option value="">All Types</option>
+    <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+  </select>
+
+  <button (click)="clearFilters()">Clear Filters</button>
+
+  <h2>Workout Table</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Workout Type</th>
+        <th>Workout Minutes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of paginatedUsers">
+        <td>{{ user.name }}</td>
+        <td>
+          <ng-container *ngFor="let workout of user.workouts; let last = last">
+            {{ workout.type }}{{ last ? '' : ', ' }}
+          </ng-container>
+          <td>{{ getTotalUserWorkoutMinutes(user) }}</td>
+      </tr>
+    </tbody>
+  </table>
   <div>
-    <h2>Workout Table</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Workout Type</th>
-          <th>Workout Minutes</th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngFor="let user of userData">
-          <tr *ngFor="let workout of user.workouts; let first = first">
-            <td *ngIf="first" [attr.rowspan]="user.workouts.length">{{ user.name }}</td>
-            <td>{{ workout.type }}</td>
-            <td>{{ workout.minutes }}</td>
-          </tr>
-        </ng-container>
-      </tbody>
-    </table>
+    <button (click)="previousPage()">Previous</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="nextPage()">Next</button>
   </div>
 </main>
