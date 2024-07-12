@@ -1,57 +1,132 @@
-<main class="main">
-  <div class="content">
-    <form (ngSubmit)="addWorkout()">
-      <label for="name">Name:</label>
-      <input type="text" id="name" [(ngModel)]="name" name="name" placeholder="Enter Name here" required />
+<main class="flex flex-col" >
+  <h1 class="bg-[#fe3367] text-white text-center text-xl p-4 font-semibold">
+    Fyle Frontend Development Challenge
+  </h1>
+  <div class="p-4">
+    <form (ngSubmit)="addWorkout()" class="flex flex-col items-center space-y-4">
+      <div class="space-x-4">
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          [(ngModel)]="name"
+          name="name"
+          placeholder="Enter Name here" required
+          class="border-b-2 border-gray-400"
+        />
+      </div>
 
-      <label for="workoutType">Workout Type:</label>
-      <select id="workoutType" [(ngModel)]="workoutType" name="workoutType" required>
-        <option hidden value="">Workout Type</option>
-        <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
-      </select>
+      <div class="space-x-4">
+        <label for="workoutType">Workout Type:</label>
+        <select
+          id="workoutType"
+          [(ngModel)]="workoutType"
+          name="workoutType"
+          required
+          class="border-b-2 border-gray-400"
+        >
+          <option hidden value="">Workout Type</option>
+          <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+        </select>
+      </div>
 
-      <label for="workoutMinutes">Workout Minutes:</label>
-      <input type="number" id="workoutMinutes" name="workoutMinutes" [(ngModel)]="workoutMinutes" placeholder="Enter in mins" required />
+      <div class="space-x-4">
+        <label for="workoutMinutes">Workout Minutes:</label>
+        <input
+          type="number"
+          min="0"
+          id="workoutMinutes"
+          oninput="this.value = Math.abs(this.value)"
+          name="workoutMinutes"
+          [(ngModel)]="workoutMinutes"
+          placeholder="Enter mins"
+          required
+          class="border-b-2 border-gray-400 w-[100px]"
+        />
+      </div>
 
-      <input type="submit" value="Add" />
-      <button (click)="resetLocalStorage()">Reset Storage</button>
+      <input
+        type="submit"
+        value="Add Workout"
+        class="cursor-pointer border-2 bg-[#fe3367] p-1 rounded-md text-white font-semibold transition-all active:scale-75 hover:bg-white hover:text-[#fe3367]"
+      />
+      <button
+        (click)="resetLocalStorage()"
+        class="border-2 bg-[#fe3367] p-1 rounded-md text-white font-semibold transition-all active:scale-75 hover:bg-white hover:text-[#fe3367]"
+      >
+        Reset Storage
+      </button>
     </form>
   </div>
+  <hr>
 
-  <label for="name">Search by Name:</label>
-  <input type="text" id="name" [(ngModel)]="nameFilter" (input)="filterUsers()" placeholder="Enter Name here" />
+  <div class="p-4 flex flex-col items-center space-y-4">
+    <div class="space-x-4">
+      <label for="name">Search by Name:</label>
+      <input
+        type="text"
+        id="name"
+        [(ngModel)]="nameFilter"
+        (input)="filterUsers()"
+        placeholder="Enter Name here"
+        class="border-b-2 border-gray-400"
+      />
+    </div>
+  
+    <div class="space-x-4">
+      <label for="workoutType">Filter by Workout Type:</label>
+      <select
+        id="workoutType"
+        [(ngModel)]="workoutType"
+        (change)="filterUsers()"
+        class="border-b-2 border-gray-400"
+      >
+        <option value="">All Types</option>
+        <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+  
+    <button
+      (click)="clearFilters()"
+      class="border-2 bg-[#fe3367] p-1 rounded-md text-white font-semibold transition-all active:scale-75 hover:bg-white hover:text-[#fe3367]"
+    >Clear Filters</button>
+  </div>
 
-  <label for="workoutType">Filter by Workout Type:</label>
-  <select id="workoutType" [(ngModel)]="workoutType" (change)="filterUsers()">
-    <option value="">All Types</option>
-    <option *ngFor="let type of workoutTypes" [value]="type">{{ type }}</option>
-  </select>
-
-  <button (click)="clearFilters()">Clear Filters</button>
-
-  <h2>Workout Table</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Workout Type</th>
-        <th>Workout Minutes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of paginatedUsers">
-        <td>{{ user.name }}</td>
-        <td>
-          <ng-container *ngFor="let workout of user.workouts; let last = last">
-            {{ workout.type }}{{ last ? '' : ', ' }}
-          </ng-container>
-          <td>{{ getTotalUserWorkoutMinutes(user) }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <div>
-    <button (click)="previousPage()">Previous</button>
-    <span>Page {{ currentPage }}</span>
-    <button (click)="nextPage()">Next</button>
+  <div class="flex flex-col items-center space-y-4">
+    <table class="table-auto border-black border-separate border-spacing-1 border-2">
+      <caption class="caption-top">Table 1.1: Workout Stats</caption>
+      <thead class="bg-gray-300">
+        <tr>
+          <th>Name</th>
+          <th>Workout Type</th>
+          <th>Workout Minutes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of paginatedUsers">
+          <td class="p-1 border-2">{{ user.name }}</td>
+          <td class="p-1 border-2">
+            <ng-container *ngFor="let workout of user.workouts; let last = last">
+              {{ workout.type }}{{ last ? '' : ', ' }}
+            </ng-container>
+          <td class="p-1 border-2">{{ getTotalUserWorkoutMinutes(user) }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="space-x-4">
+      <button
+        (click)="previousPage()"
+        class="border-2 bg-[#fe3367] p-1 rounded-md text-white font-semibold transition-all active:scale-75 hover:bg-white hover:text-[#fe3367]"
+      >
+        Go back
+      </button>
+      <span>Page {{ currentPage }}</span>
+      <button 
+        (click)="nextPage()"
+        class="border-2 bg-[#fe3367] p-1 rounded-md text-white font-semibold transition-all active:scale-75 hover:bg-white hover:text-[#fe3367]"
+      >
+        Next Page
+      </button>
+    </div>
   </div>
 </main>
