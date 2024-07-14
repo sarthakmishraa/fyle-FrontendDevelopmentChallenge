@@ -1,27 +1,43 @@
-# Fyle
+# Fyle Frontend Challenge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.0.
+## Live here - https://fyle-frontend-development-challenge-sable.vercel.app/
 
-## Development server
+[View Code Coverage Report](./coverage/index.html)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h3>Code Coverage Report Snip</h3>
+<img src="./media/fyle_code_coverage.png" width="600" />
 
-## Code scaffolding
+## Key Features
+- Add user name and select workout type
+- Add workout minutes for each user
+- View workout history with user data
+- Pagination implemented with a maximum of 5 rows per table page
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Short Description
+This project is a workout system built using Angular and styled with Tailwind CSS. Users can enter their name, select a workout type, and add their workout minutes. The workout history displays all users in a table format, showing their names, workout types, and total workout minutes. Pagination is implemented to display a maximum of 5 rows per page in the table.
 
-## Build
+## Snippets
+<h3>App Home</h3>
+<img src="./media/fyle_snip.png" width="600" />
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Tech Used
+- **Angular:** Frontend framework for building the application
+- **Tailwind CSS:** Utility-first CSS framework for styling
+- **Karma:** Test runner for unit testing
+- **Jasmine:** Testing framework for JavaScript
 
-## Running unit tests
+## Running the Project Locally
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### There are 2 ways to do this
 
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1. **Using docker:**
+   ```bash
+   docker build . -t fyle-intern-challenge
+   docker run -p 4200:4200 fyle-intern-challenge
+2. **Clone the repository:**
+   ```bash
+   Install node version > 18
+   git clone https://github.com/sarthakmishraa/fyle-FrontendDevelopmentChallenge.git
+   cd fyle-FrontendDevelopmentChallenge
+   Run npm install
+   Run ng serve (to start dev server locally)
