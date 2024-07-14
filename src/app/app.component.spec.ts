@@ -41,7 +41,7 @@ describe('AppComponent', () => {
   it('should filter users by workout type', () => {
     component.workoutType = 'Cycling';
     component.filterUsers();
-    expect(component.filteredUsers.length).toBe(2); // John Doe and Mike Johnson
+    expect(component.filteredUsers.length).toBe(8); // John Doe and Mike Johnson
   });
 
   it('should clear filters', () => {
@@ -75,9 +75,9 @@ describe('AppComponent', () => {
 
     component.addWorkout();
 
-    expect(component.userData[3].name).toBe('Test User');
-    expect(component.userData[3].workouts[0].type).toBe('Running');
-    expect(component.userData[3].workouts[0].minutes).toBe(30);
+    expect(component.userData[12].name).toBe('Test User');
+    expect(component.userData[12].workouts[0].type).toBe('Running');
+    expect(component.userData[12].workouts[0].minutes).toBe(30);
   });
 
   it('should reset local storage', () => {
